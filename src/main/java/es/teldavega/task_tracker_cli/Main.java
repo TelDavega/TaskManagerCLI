@@ -1,4 +1,4 @@
-package es.teldavega.taskTrakerCLI;
+package es.teldavega.task_tracker_cli;
 
 import java.util.Scanner;
 

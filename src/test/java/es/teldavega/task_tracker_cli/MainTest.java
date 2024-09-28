@@ -1,13 +1,12 @@
-package es.teldavega.taskTrakerCLI;
+package es.teldavega.task_tracker_cli;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class MainTest {
 
@@ -21,17 +20,19 @@ class MainTest {
     @Test
     void addTaks() {
         List<String> tasks = List.of("Task 1", "Task 2", "Task 3");
+        int id = 1;
         for (String task : tasks) {
-            TestCreateTask(task);
+            TestCreateTask(task, id);
+            id++;
         }
     }
 
-    private void TestCreateTask(String name) {
+    private void TestCreateTask(String name, int id) {
         Task task = taskManager.addTask(name);
         assertNotNull(task);
-        assertEquals(1, task.getId());
+        assertEquals(id, task.getId());
         assertEquals(name, task.getDescription());
         assertEquals(TaskStatus.TODO, task.getStatus());
-        assertEquals(task.getCreatedDate(), task.getUpdatedDate());
+        assertEquals(task.getCreatedAt(), task.getUpdatedAt());
     }
 }
