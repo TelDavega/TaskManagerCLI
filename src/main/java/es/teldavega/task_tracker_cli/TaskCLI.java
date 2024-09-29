@@ -45,7 +45,7 @@ public class TaskCLI {
                     System.out.println("Usage: task-cli delete <id>");
                     return;
                 }
-                int id = Integer.parseInt(args[1]);
+                id = Integer.parseInt(args[1]);
                 taskManager.deleteTask(id);
                 break;
             default:
