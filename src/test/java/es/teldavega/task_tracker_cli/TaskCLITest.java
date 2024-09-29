@@ -107,4 +107,31 @@ class TaskCLITest {
         assertEquals(expected, outContent.toString());
     }
 
+    @Test
+    void testDeleteTask() {
+        String[] args = {"add", "Task 1"};
+        TaskCLI.main(args);
+        outContent.reset();
+        args = new String[]{"delete", "1"};
+        TaskCLI.main(args);
+        String expected = "Task deleted successfully (ID: 1)" + System.lineSeparator();
+        assertEquals(expected, outContent.toString());
+    }
+
+    @Test
+    void testDeleteTaskNotFound() {
+        String[] args = {"delete", "1"};
+        TaskCLI.main(args);
+        String expected = "Task not found (ID: 1)" + System.lineSeparator();
+        assertEquals(expected, outContent.toString());
+    }
+
+    @Test
+    void testDeleteWithoutId() {
+        String[] args = {"delete"};
+        String expected = "Usage: task-cli delete <id>" + System.lineSeparator();
+        TaskCLI.main(args);
+        assertEquals(expected, outContent.toString());
+    }
+
 }

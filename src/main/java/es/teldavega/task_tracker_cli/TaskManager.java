@@ -26,4 +26,14 @@ public class TaskManager {
     public List<Task> getTasks() {
         return new ArrayList<>(tasks.values());
     }
+
+    public void deleteTask(int id) {
+
+        if (!tasks.containsKey(id)) {
+            System.out.println("Task not found (ID: " + id + ")");
+            return;
+        }
+        tasks.remove(id);
+        System.out.println("Task deleted successfully (ID: " + id + ")");
+    }
 }

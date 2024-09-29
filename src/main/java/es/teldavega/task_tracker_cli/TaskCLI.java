@@ -31,6 +31,14 @@ public class TaskCLI {
                 Task task = taskManager.addTask(taskName);
                 System.out.println("Task added successfully (ID: " + task.getId() + ")");
                 break;
+            case "delete":
+                if (args.length < 2) {
+                    System.out.println("Usage: task-cli delete <id>");
+                    return;
+                }
+                int id = Integer.parseInt(args[1]);
+                taskManager.deleteTask(id);
+                break;
             default:
                 System.out.println("Unknown command: " + command);
                 return;
