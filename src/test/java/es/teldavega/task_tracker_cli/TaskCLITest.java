@@ -160,4 +160,31 @@ class TaskCLITest {
         assertEquals(expected, outContent.toString());
     }
 
+    @Test
+    void testMarkInProgress() {
+        String[] args = {"add", "Task 1"};
+        TaskCLI.main(args);
+        outContent.reset();
+        args = new String[]{"mark-in-progress", "1"};
+        TaskCLI.main(args);
+        String expected = "Task marked as in progress (ID: 1)" + System.lineSeparator();
+        assertEquals(expected, outContent.toString());
+    }
+
+    @Test
+    void testMarkInProgressNotFound() {
+        String[] args = {"mark-in-progress", "1"};
+        TaskCLI.main(args);
+        String expected = "Task with ID 1 not found" + System.lineSeparator();
+        assertEquals(expected, outContent.toString());
+    }
+
+    @Test
+    void testMarkInProgressWithoutId() {
+        String[] args = {"mark-in-progress"};
+        String expected = "Usage: task-cli mark-in-progress <id>" + System.lineSeparator();
+        TaskCLI.main(args);
+        assertEquals(expected, outContent.toString());
+    }
+
 }

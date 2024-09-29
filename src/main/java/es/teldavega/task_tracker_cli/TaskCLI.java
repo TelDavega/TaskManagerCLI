@@ -48,6 +48,15 @@ public class TaskCLI {
                 id = Integer.parseInt(args[1]);
                 taskManager.deleteTask(id);
                 break;
+            case "mark-in-progress":
+                if (args.length < 2) {
+                    System.out.println("Usage: task-cli mark-in-progress <id>");
+                    return;
+                }
+                id = Integer.parseInt(args[1]);
+                taskManager.markInProgress(id);
+                break;
+
             default:
                 System.out.println("Unknown command: " + command);
                 return;

@@ -47,4 +47,15 @@ public class TaskManager {
         tasks.remove(id);
         System.out.println("Task deleted successfully (ID: " + id + ")");
     }
+
+    public void markInProgress(int id) {
+        Task task = tasks.get(id);
+        if (task == null) {
+            System.out.println("Task with ID " + id + " not found");
+            return;
+        }
+        task.setStatus(TaskStatus.IN_PROGRESS);
+        tasks.put(id, task);
+        System.out.println("Task marked as in progress (ID: " + id + ")");
+    }
 }
