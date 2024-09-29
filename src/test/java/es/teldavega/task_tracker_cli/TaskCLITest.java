@@ -255,4 +255,61 @@ class TaskCLITest {
         assertEquals(expected, outContent.toString());
     }
 
+    @Test
+    void testListDone() {
+        setupListOfTasks();
+        String[] args = {"list", "done"};
+        TaskCLI.main(args);
+        assertTrue(outContent.toString().contains("\"id\":3,\"description\":\"Task 3\",\"status\":\"done\""));
+        assertTrue(outContent.toString().contains("\"id\":4,\"description\":\"Task 4\",\"status\":\"done\""));
+        assertFalse(outContent.toString().contains("\"id\":1,\"description\":\"Task 1\",\"status\":\"in-progress\""));
+        assertFalse(outContent.toString().contains("\"id\":2,\"description\":\"Task 2\",\"status\":\"in-progress\""));
+        assertFalse(outContent.toString().contains("\"id\":5,\"description\":\"Task 5\",\"status\":\"todo\""));
+    }
+
+    @Test
+    void testListInProgress() {
+        setupListOfTasks();
+        String[] args = {"list", "in-progress"};
+        TaskCLI.main(args);
+        assertTrue(outContent.toString().contains("\"id\":1,\"description\":\"Task 1\",\"status\":\"in-progress\""));
+        assertTrue(outContent.toString().contains("\"id\":2,\"description\":\"Task 2\",\"status\":\"in-progress\""));
+        assertFalse(outContent.toString().contains("\"id\":3,\"description\":\"Task 3\",\"status\":\"done\""));
+        assertFalse(outContent.toString().contains("\"id\":4,\"description\":\"Task 4\",\"status\":\"done\""));
+        assertFalse(outContent.toString().contains("\"id\":5,\"description\":\"Task 5\",\"status\":\"todo\""));
+    }
+
+    @Test
+    void testListTodo() {
+        setupListOfTasks();
+        String[] args = {"list", "todo"};
+        TaskCLI.main(args);
+        assertTrue(outContent.toString().contains("\"id\":5,\"description\":\"Task 5\",\"status\":\"todo\""));
+        assertFalse(outContent.toString().contains("\"id\":1,\"description\":\"Task 1\",\"status\":\"in-progress\""));
+        assertFalse(outContent.toString().contains("\"id\":2,\"description\":\"Task 2\",\"status\":\"in-progress\""));
+        assertFalse(outContent.toString().contains("\"id\":3,\"description\":\"Task 3\",\"status\":\"done\""));
+        assertFalse(outContent.toString().contains("\"id\":4,\"description\":\"Task 4\",\"status\":\"done\""));
+    }
+
+    @Test
+    void testListUnknownStatus() {
+        setupListOfTasks();
+        String[] args = {"list", "kk"};
+        TaskCLI.main(args);
+        String expected = "Unknown status: kk" + System.lineSeparator();
+        assertEquals(expected, outContent.toString());
+    }
+
+    @Test
+    void testListDoneEmpty() {
+        String[] args = {"add", "Task 1"};
+        TaskCLI.main(args);
+        outContent.reset();
+
+        args = new String[]{"list", "done"};
+        TaskCLI.main(args);
+        String expected = "No tasks found with status done" + System.lineSeparator();
+        assertEquals(expected, outContent.toString());
+    }
+
 }

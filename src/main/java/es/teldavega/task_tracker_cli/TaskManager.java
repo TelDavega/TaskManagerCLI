@@ -66,4 +66,18 @@ public class TaskManager {
         System.out.println(JsonParser.getStringJson(getTasks()));
 
     }
+
+    public void listTasks(TaskStatus status) {
+        List<Task> filteredTasks = new ArrayList<>();
+        for (Task task : tasks.values()) {
+            if (task.getStatus().equals(status.getStatus())) {
+                filteredTasks.add(task);
+            }
+        }
+        if (filteredTasks.isEmpty()) {
+            System.out.println("No tasks found with status " + status.getStatus());
+            return;
+        }
+        System.out.println(JsonParser.getStringJson(filteredTasks));
+    }
 }
