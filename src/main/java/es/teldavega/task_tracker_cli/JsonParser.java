@@ -12,6 +12,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JsonParser {
+
+    private JsonParser() {
+
+    }
+
     public static String toJson(Task task) {
         return "{"
                 + "\"id\":" + task.getId() + ","
