@@ -31,6 +31,15 @@ public class TaskCLI {
                 Task task = taskManager.addTask(taskName);
                 System.out.println("Task added successfully (ID: " + task.getId() + ")");
                 break;
+            case "update":
+                if (args.length < 3) {
+                    System.out.println("Usage: task-cli update <id> <task>");
+                    return;
+                }
+                int id = Integer.parseInt(args[1]);
+                String newTaskName = args[2];
+                taskManager.updateTask(id, newTaskName);
+                break;
             case "delete":
                 if (args.length < 2) {
                     System.out.println("Usage: task-cli delete <id>");

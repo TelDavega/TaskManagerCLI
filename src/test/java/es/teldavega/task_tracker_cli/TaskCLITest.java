@@ -33,7 +33,7 @@ class TaskCLITest {
     }
 
     @Test
-    void testAddTask() throws IOException {
+    void testAddTask() {
         String[] args = {"add", "Task 1"};
         TaskCLI.main(args);
         String expected = "Task added successfully (ID: 1)" + System.lineSeparator();
@@ -41,7 +41,7 @@ class TaskCLITest {
     }
 
     @Test
-    void testAddMultipleTasks() throws IOException {
+    void testAddMultipleTasks() {
         List<String[]> listOfArgs = Arrays.asList(new String[]{"add", "Task 1"},
                 new String[]{"add", "Task 2"},
                 new String[]{"add", "Task 3"});
@@ -56,7 +56,7 @@ class TaskCLITest {
     }
 
     @Test
-    void testUnknownCommand() throws IOException {
+    void testUnknownCommand() {
         String[] args = {"kk", "kk"};
         String expected = "Unknown command: kk" + System.lineSeparator();
         TaskCLI.main(args);
@@ -64,14 +64,14 @@ class TaskCLITest {
     }
 
     @Test
-    void testNoArgs() throws IOException {
+    void testNoArgs() {
         String expected = "Usage: task-cli <command> [args]" + System.lineSeparator();
         TaskCLI.main(new String[]{});
         assertEquals(expected, outContent.toString());
     }
 
     @Test
-    void testAddWithoutDescription() throws IOException {
+    void testAddWithoutDescription() {
         String[] args = {"add"};
         String expected = "Usage: task-cli add <task>" + System.lineSeparator();
         TaskCLI.main(args);
@@ -79,7 +79,7 @@ class TaskCLITest {
     }
 
     @Test
-    void testErrorReadingTask() throws IOException {
+    void testErrorReadingTask() {
         try {
             Path path = Paths.get("tasks.json");
             if (!Files.exists(path)) {
@@ -107,6 +107,32 @@ class TaskCLITest {
         assertEquals(expected, outContent.toString());
     }
 
+    @Test
+    void testUpdateTask() {
+        String[] args = {"add", "Task 1"};
+        TaskCLI.main(args);
+        outContent.reset();
+        args = new String[]{"update", "1", "Task 1 buy groceries"};
+        TaskCLI.main(args);
+        String expected = "Task updated successfully (ID: 1)" + System.lineSeparator();
+        assertEquals(expected, outContent.toString());
+    }
+
+    @Test
+    void testUpdateTaskNotFound() {
+        String[] args = {"update", "1", "Task 1 buy groceries"};
+        TaskCLI.main(args);
+        String expected = "Task with ID 1 not found" + System.lineSeparator();
+        assertEquals(expected, outContent.toString());
+    }
+
+    @Test
+    void testUpdateTaskWithoutDescription() {
+        String[] args = {"update", "1"};
+        String expected = "Usage: task-cli update <id> <task>" + System.lineSeparator();
+        TaskCLI.main(args);
+        assertEquals(expected, outContent.toString());
+    }
     @Test
     void testDeleteTask() {
         String[] args = {"add", "Task 1"};
