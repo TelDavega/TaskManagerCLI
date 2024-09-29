@@ -2,7 +2,6 @@ package es.teldavega.task_tracker_cli;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,14 +47,14 @@ public class TaskManager {
         System.out.println("Task deleted successfully (ID: " + id + ")");
     }
 
-    public void markInProgress(int id) {
+    public void changeTaskStatus(int id, TaskStatus newStatus) {
         Task task = tasks.get(id);
         if (task == null) {
             System.out.println("Task with ID " + id + " not found");
             return;
         }
-        task.setStatus(TaskStatus.IN_PROGRESS);
+        task.setStatus(newStatus);
         tasks.put(id, task);
-        System.out.println("Task marked as in progress (ID: " + id + ")");
+        System.out.println("Task marked as " + newStatus.getStatus() + " (ID: " + id + ")");
     }
 }
