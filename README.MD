@@ -3,7 +3,7 @@
 ## Description
 **Task Tracker CLI** ask tracker is a project used to track and manage your tasks. In this task, you will build a simple command line interface (CLI) to track what you need to do, what you have done, and what you are currently working on. The program generates a json file to store the tasks.
 
-This project is part of the [Roadmap.sh](https://roadmap.sh/backend/projects) backend projects.
+This project is part of the [Roadmap.sh](https://roadmap.sh/projects/task-tracker) backend projects.
 
 ## Requirements
 Before compiling and running the program, make sure you have the following installed:
