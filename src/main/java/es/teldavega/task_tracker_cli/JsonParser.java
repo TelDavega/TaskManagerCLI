@@ -50,6 +50,15 @@ public class JsonParser {
         }
 
         File file = new File("tasks.json");
+        StringBuilder json = getStringJson(tasks);
+        try(FileWriter writer = new FileWriter(file)) {
+            writer.write(json.toString());
+        } catch (IOException e) {
+            System.err.println("Error writing JSON to file: " + e.getMessage());
+        }
+    }
+
+    public static StringBuilder getStringJson(Collection<Task> tasks) {
         StringBuilder json = new StringBuilder();
         json.append("[").append(System.lineSeparator());
         int i = 1;
@@ -61,11 +70,7 @@ public class JsonParser {
             i++;
         }
         json.append(System.lineSeparator()).append("]");
-        try(FileWriter writer = new FileWriter(file)) {
-            writer.write(json.toString());
-        } catch (IOException e) {
-            System.err.println("Error writing JSON to file: " + e.getMessage());
-        }
+        return json;
     }
 
     public static Map<Integer, Task> readJson(String filename) throws ParseException {

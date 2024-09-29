@@ -57,4 +57,13 @@ public class TaskManager {
         tasks.put(id, task);
         System.out.println("Task marked as " + newStatus.getStatus() + " (ID: " + id + ")");
     }
+
+    public void listTasks() {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks found");
+            return;
+        }
+        System.out.println(JsonParser.getStringJson(getTasks()));
+
+    }
 }

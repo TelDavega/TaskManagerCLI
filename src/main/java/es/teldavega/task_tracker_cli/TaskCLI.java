@@ -63,6 +63,9 @@ public class TaskCLI {
                 id = Integer.parseInt(args[1]);
                 taskManager.changeTaskStatus(id, TaskStatus.DONE);
                 break;
+            case "list":
+                taskManager.listTasks();
+                break;
             default:
                 System.out.println("Unknown command: " + command);
                 return;

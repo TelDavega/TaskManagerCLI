@@ -214,4 +214,45 @@ class TaskCLITest {
         assertEquals(expected, outContent.toString());
     }
 
+    @Test
+    void testListTasks() {
+        setupListOfTasks();
+        String[] args;
+        args = new String[]{"list"};
+        TaskCLI.main(args);
+        assertTrue(outContent.toString().contains("\"id\":1,\"description\":\"Task 1\",\"status\":\"in-progress\""));
+        assertTrue(outContent.toString().contains("\"id\":2,\"description\":\"Task 2\",\"status\":\"in-progress\""));
+        assertTrue(outContent.toString().contains("\"id\":3,\"description\":\"Task 3\",\"status\":\"done\""));
+        assertTrue(outContent.toString().contains("\"id\":4,\"description\":\"Task 4\",\"status\":\"done\""));
+        assertTrue(outContent.toString().contains("\"id\":5,\"description\":\"Task 5\",\"status\":\"todo\""));
+    }
+
+    private void setupListOfTasks() {
+        List<String[]> listOfArgs = Arrays.asList(new String[]{"add", "Task 1"},
+                new String[]{"add", "Task 2"},
+                new String[]{"add", "Task 3"},
+                new String[]{"add", "Task 4"},
+                new String[]{"add", "Task 5"},
+                new String[]{"mark-in-progress", "1"},
+                new String[]{"mark-in-progress", "2"},
+                new String[]{"mark-done", "3"},
+                new String[]{"mark-done", "4"});
+        executeCommands(listOfArgs);
+        outContent.reset();
+    }
+
+    private void executeCommands(List<String[]> listOfArgs) {
+        for (String[] args : listOfArgs) {
+            TaskCLI.main(args);
+        }
+    }
+
+    @Test
+    void testListTasksEmpty() {
+        String[] args = {"list"};
+        TaskCLI.main(args);
+        String expected = "No tasks found" + System.lineSeparator();
+        assertEquals(expected, outContent.toString());
+    }
+
 }
