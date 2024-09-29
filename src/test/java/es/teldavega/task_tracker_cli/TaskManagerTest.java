@@ -3,6 +3,11 @@ package es.teldavega.task_tracker_cli;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.ParseException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,7 +18,9 @@ class TaskManagerTest {
     TaskManager taskManager;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws ParseException, IOException {
+        Path path = Paths.get("tasks.json");
+        Files.deleteIfExists(path);
         taskManager = new TaskManager();
     }
 
@@ -32,7 +39,7 @@ class TaskManagerTest {
         assertNotNull(task);
         assertEquals(id, task.getId());
         assertEquals(name, task.getDescription());
-        assertEquals(TaskStatus.TODO, task.getStatus());
+        assertEquals(TaskStatus.TODO.getStatus(), task.getStatus());
         assertEquals(task.getCreatedAt(), task.getUpdatedAt());
     }
 }

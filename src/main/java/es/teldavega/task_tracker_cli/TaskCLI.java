@@ -1,12 +1,21 @@
 package es.teldavega.task_tracker_cli;
 
-public class TaskCLI {
+import java.io.IOException;
+import java.text.ParseException;
 
-    private static TaskManager taskManager = new TaskManager();
+public class TaskCLI {
 
     public static void main(String[] args) {
         if (args.length == 0) {
             System.out.println("Usage: task-cli <command> [args]");
+            return;
+        }
+
+        TaskManager taskManager;
+        try {
+            taskManager = new TaskManager();
+        } catch (ParseException e) {
+            System.err.println("Error reading tasks.json " + e.getMessage());
             return;
         }
 
@@ -24,6 +33,9 @@ public class TaskCLI {
                 break;
             default:
                 System.out.println("Unknown command: " + command);
+                return;
         }
+
+        JsonParser.writeJson(taskManager.getTasks());
     }
 }

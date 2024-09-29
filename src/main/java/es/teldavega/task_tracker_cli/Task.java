@@ -3,11 +3,19 @@ package es.teldavega.task_tracker_cli;
 import java.util.Date;
 
 public class Task {
-    private int id;
-    private String description;
-    private  TaskStatus status;
-    private Date createdAt;
-    private Date updatedAt;
+    private final int id;
+    private final String description;
+    private final TaskStatus status;
+    private final Date createdAt;
+    private final Date updatedAt;
+
+    public Task(int id, String description, TaskStatus status, Date createdAt, Date updatedAt) {
+        this.id = id;
+        this.description = description;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 
     public Task(int id, String description) {
         this.id = id;
@@ -25,8 +33,8 @@ public class Task {
         return description;
     }
 
-    public TaskStatus getStatus() {
-        return status;
+    public String getStatus() {
+        return status.getStatus();
     }
 
     public Date getCreatedAt() {
@@ -37,14 +45,4 @@ public class Task {
         return updatedAt;
     }
 
-    @Override
-    public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", description='" + description + '\'' +
-                ", status=" + status +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
-    }
 }

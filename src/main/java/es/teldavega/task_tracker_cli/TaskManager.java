@@ -1,5 +1,6 @@
 package es.teldavega.task_tracker_cli;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,9 +11,9 @@ public class TaskManager {
     private Map<Integer,Task> tasks;
     private int currentId;
 
-    public TaskManager() {
-        this.tasks = new HashMap<>();
-        this.currentId = 1;
+    public TaskManager() throws ParseException {
+        this.tasks = JsonParser.readJson("tasks.json");
+        this.currentId = tasks.size() + 1;
     }
 
     public Task addTask(String name) {
@@ -20,5 +21,9 @@ public class TaskManager {
         tasks.put(currentId, task);
         currentId++;
         return task;
+    }
+
+    public List<Task> getTasks() {
+        return new ArrayList<>(tasks.values());
     }
 }
