@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Task {
     private final int id;
-    private final String description;
+    private String description;
     private final TaskStatus status;
     private final Date createdAt;
     private final Date updatedAt;
@@ -45,4 +45,7 @@ public class Task {
         return updatedAt;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

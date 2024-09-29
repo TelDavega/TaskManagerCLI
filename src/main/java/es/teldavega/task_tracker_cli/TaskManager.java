@@ -23,6 +23,17 @@ public class TaskManager {
         return task;
     }
 
+    public void updateTask(int id, String name) {
+        Task task = tasks.get(id);
+        if (task == null) {
+            System.out.println("Task with ID " + id + " not found");
+            return;
+        }
+        task.setDescription(name);
+        tasks.put(id, task);
+        System.out.println("Task updated successfully (ID: " + id + ")");
+    }
+
     public List<Task> getTasks() {
         return new ArrayList<>(tasks.values());
     }
